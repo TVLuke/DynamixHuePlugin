@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Screen Status Plugin
-Bundle-SymbolicName: org.ambientdynamix.contextplugins.currentactivity
+Bundle-Name: Hue Light Plugin
+Bundle-SymbolicName: org.ambientdynamix.contextplugins.hue
 Bundle-Version: 1.0.0
 Bundle-ClassPath: .,lib/jsoup-1.7.2dexed.jar
 Export-Package: org.ambientdynamix.contextplugins.hue

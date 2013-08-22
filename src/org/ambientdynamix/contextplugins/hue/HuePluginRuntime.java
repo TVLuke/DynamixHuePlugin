@@ -85,6 +85,10 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 		{
 			
 		}
+		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.info.device.information"))
+		{
+			
+		}
 		context=this;
 	}
 
