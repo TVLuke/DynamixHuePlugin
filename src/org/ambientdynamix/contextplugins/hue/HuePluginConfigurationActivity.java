@@ -205,6 +205,29 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				        	Log.d("HUE", "Already granted access. username: " + bridge.getUsername());
 			    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
 			    			Log.d("HUE", "Available LightBulbs: "+lights.size());
+			    			for (final HueLightBulb bulb : lights) 
+			    			{
+			    				new Thread(new Runnable()
+			    			 	{
+			    			 		public void run()
+			    			 		{
+					    				Log.d("HUE", bulb.toString());
+					    				bulb.setBrightness(ColorHelper.convertRGB2Hue("255255255").get("bri"));
+					    				bulb.setHue(ColorHelper.convertRGB2Hue("255255255").get("hue"));
+					    				bulb.setSaturation(ColorHelper.convertRGB2Hue("255255255").get("sat"));
+					    				try 
+					    				{
+											Thread.sleep(500);
+										} 
+					    				catch (InterruptedException e) 
+					    				{
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+					    				bulb.setOn(false);			    			 		
+					    			}
+			    			 	}).start();
+			    			}
 			    			System.out.println("");
 				        }
 				    }
