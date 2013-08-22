@@ -181,8 +181,11 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
   
 	public static String randomAppId()
 	{
+		Log.d(TAG, "...");
 	    String x = new BigInteger(250, random).toString(32);
+	    Log.d(TAG, x);
 	    x = x.substring(0, 30);
+	    Log.d(TAG, x);
 	    return x;
 	}
 	  
