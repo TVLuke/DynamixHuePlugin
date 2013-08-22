@@ -98,12 +98,12 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 	 {
 	     protected Long doInBackground(Integer... urls) 
 	     {
-	    	  Log.d("HUE", "doInBackground");
+	    	Log.d("HUE", "doInBackground");
 	    	for(int i=0; i<30; i++)
 	    	{
 	    		try 
 				{
-	    			  Log.d("HUE", "sleep");
+	    			Log.d("HUE", "sleep");
 					Thread.sleep(1000);
 				} 
 				catch (InterruptedException e) 
@@ -111,7 +111,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 						
 						e.printStackTrace();
 				}
-	    		  Log.d("HUE", "pp");
+	    		Log.d("HUE", "pp");
 				publishProgress(i);
 		    }
 			return 0l;
