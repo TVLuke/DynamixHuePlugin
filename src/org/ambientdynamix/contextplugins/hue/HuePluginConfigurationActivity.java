@@ -110,7 +110,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		{
 			TextView tv = new TextView(ctx);
 			tv.setText(bridges.get(i).getName());
-			tv.setBackgroundColor(0x0f00ffff);
+			tv.setBackgroundColor(0xfff00000);
 			tv.setTextSize(35);
 			
 			TextView tv2 = new TextView(ctx);
@@ -134,7 +134,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				tv3.setTextSize(20);
 				String x = ""+light.getHue();
 				
-				tv.setBackgroundColor(0x00ff00ff);
+				tv.setBackgroundColor(0xfff000ff);
 				tv3.setText("  "+light.getName());
 				
 				listLayout.addView(tv3, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
@@ -162,17 +162,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				        	text.setText("Press the button on your Hue bridge in the next 30 seconds to grant access.");
 				            if(bridge.authenticate(true)) 
 				            {
-				            	xyz.getPluginFacade().setPluginConfiguredStatus(xyz.getSessionId(), true);
 				            	Log.d("HUE", "Access granted. username: " + bridge.getUsername());
-				    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
-				    			Log.d("HUE", "Available LightBulbs: "+lights.size());
-				    			for (HueLightBulb bulb : lights) 
-				    			{
-				    				Log.d("HUE", bulb.toString());
-				    				bulb.setBrightness(255);
-				    				bulb.setHue(30000);
-				    			}
-				    			System.out.println("");
 				            } 
 				            else 
 				            {
