@@ -112,12 +112,26 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		{
 			Log.d("HUE", "b");
 			TextView tv = new TextView(ctx);
-			tv.setText(bridges.get(i).getName());
+			if(bridges.get(i).authenticated)
+			{
+				tv.setText(bridges.get(i).getName());
+			}
+			else
+			{
+				tv.setText("unknown");
+			}
 			tv.setBackgroundColor(0xff888888);
 			tv.setTextSize(35);
 			
 			TextView tv2 = new TextView(ctx);
-			tv2.setText(""+bridges.get(i).getBaseUrl());
+			if(bridges.get(i).authenticated)
+			{
+				tv2.setText(""+bridges.get(i).getBaseUrl());
+			}
+			else
+			{
+				tv2.setText("unknown");
+			}
 			tv2.setBackgroundColor(0xff888888);
 			Log.d("HUE", "c");
 			listLayout.addView(tv, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
@@ -204,7 +218,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				        	{
 				        		Log.e("HUE", "so, for hatever reason trying to authenticate suddenly gets an error...");
 				        	}
-				            if(auth) 
+				            if(bridge.authenticate(true)) 
 				            {
 				            	Log.d("HUE", "Access granted. username: " + bridge.getUsername());
 				    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
