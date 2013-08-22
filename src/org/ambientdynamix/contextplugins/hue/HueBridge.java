@@ -503,21 +503,31 @@ public class HueBridge {
 				final JSONObject datastore = response.get(0);
 				if(datastore.has("error")) 
 				{
+					Log.d("HUE", "DataStore has error");
 					throw new HueCommException(datastore.getJSONObject("error"));
 				}
-				if(datastore.has("config") && datastore.has("lights") && datastore.has("groups")) {
+				if(datastore.has("config") && datastore.has("lights") && datastore.has("groups")) 
+				{
 					parseConfig(datastore.getJSONObject("config"));
 					parseLights(datastore.getJSONObject("lights"));
 					parseGroups(datastore.getJSONObject("groups"));
 					this.setUsername(username);
 					initialSyncDone = true;
-				} else {
+				} 
+				else 
+				{
+					Log.d("HUE", "Incomplete response");
 					throw new HueCommException("Incomplete response. Missing at least one of config/lights/groups");
 				}
-			} else {
+			} else 
+			{
+				Log.d("HUE", "empty response");
 				throw new HueCommException("Empty response");
 			}
-		} catch(IOException e) {
+		} 
+		catch(IOException e) 
+		{
+			Log.d("HUE", "Some other exception has happend somewhere");
 			throw new HueCommException(e);
 		}
 	}
