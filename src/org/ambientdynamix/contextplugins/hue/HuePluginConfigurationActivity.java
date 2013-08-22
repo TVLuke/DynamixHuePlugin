@@ -58,26 +58,23 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		
         TextView text = new TextView(ctx);
         text.setText("IP");
-        text.setText(HuePluginRuntime.hueID);
+        //text.setText(HuePluginRuntime.hueID);
         final EditText ipfield = new EditText(ctx);
         connectbar = new ProgressBar(ctx, null, android.R.attr.progressBarStyleHorizontal);
         connectbar.setVisibility(View.GONE);
         connectbutton = new Button(ctx);
-        connectbutton.setText("Connect To Hue Bridge");
+        connectbutton.setText("Connect To Hue Bridge xxx");
         connectbutton.setOnClickListener(new View.OnClickListener() 
         {
             public void onClick(View v)
             {
             	//new Countdown().execute();
 	    		discoverAndAuthenticate();
-
             }
         });
         Log.d("HUE", "abc");
 		rootLayout = new LinearLayout(context);
 		rootLayout.setOrientation(LinearLayout.VERTICAL);
-		
-
 		
 	     rootLayout.addView(text,  new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
 	        		FrameLayout.LayoutParams.WRAP_CONTENT));
@@ -91,57 +88,6 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		return rootLayout;
 	}
 
-	/**
-	 * @author lukas
-	 *
-	 */
-	 private class Countdown extends AsyncTask<Integer, Integer, Long> 
-	 {
-	     protected Long doInBackground(Integer... urls) 
-	     {
-	    	Log.d("HUE", "doInBackground");
-	    	for(int i=0; i<30; i++)
-	    	{
-	    		try 
-				{
-	    			Log.d("HUE", "sleep");
-					Thread.sleep(1000);
-				} 
-				catch (InterruptedException e) 
-				{
-						
-						e.printStackTrace();
-				}
-	    		Log.d("HUE", "pp");
-				publishProgress(i);
-		    }
-			return 0l;
-		  }
-
-		  protected void onProgressUpdate(Integer... progress) 
-		  {
-		    	 if(progress[0]==0)
-		    	 {
-			    	  Log.d("HUE", "set visble");
-		 	    	 connectbar.setVisibility(View.VISIBLE);
-		    		  Log.d("HUE", "p=0 start disc and auth");
-		    	 }
-		    	 connectbutton.setClickable(false);
-		    	  Log.d("HUE", "int p");
-		    	 int p = progress[0];
-		    	  Log.d("HUE", "p="+p);
-		    	 connectbar.setProgress(p);
-		    	  Log.d("HUE", "done");
-		  	}
-
-		     protected void onPostExecute(Long result) 
-		     {
-		    	 Log.d("HUE", "on post execute");
-		    	 connectbar.setVisibility(View.GONE);		    	
-		    	 connectbutton.setClickable(true);
-		     }
-		 }
-	 
 	 public static void discoverAndAuthenticate() 
 	 {
 		 	new Thread(new Runnable()
