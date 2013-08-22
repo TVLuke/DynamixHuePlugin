@@ -194,7 +194,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			}
 		}
 	}
-	 public static void discoverAndAuthenticate(final ContextPluginRuntime xyz) 
+	 public static void discoverAndAuthenticate(final ContextPluginRuntime arg1) 
 	 {
 		 	new Thread(new Runnable()
 		 	{
@@ -215,6 +215,8 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				            if(bridge.authenticate(true)) 
 				            {
 				            	Log.d("HUE", "Access granted. username: " + bridge.getUsername());
+				            	HuePluginRuntime.settings.put("HueApplicationID", HuePluginRuntime.hueID);
+				    			arg1.getPluginFacade().storeContextPluginSettings(arg1.getSessionId(), HuePluginRuntime.settings);
 				    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
 				    			Log.d("HUE", "Available LightBulbs: "+lights.size());
 				    			for (final HueLightBulb bulb : lights) 

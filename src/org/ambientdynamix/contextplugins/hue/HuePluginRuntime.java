@@ -76,8 +76,8 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 				{
 					Log.d("HUE", "action_type=setcolor");
 					String r = scanConfig.getString("r_channel");
-					String g = scanConfig.getString("r_channel");
-					String b = scanConfig.getString("r_channel");
+					String g = scanConfig.getString("g_channel");
+					String b = scanConfig.getString("b_channel");
 					Log.d("HUE", r+" "+g+" "+b);
 					for(HueBridge bridge: bridges)
 					{
