@@ -60,6 +60,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
         text.setText(HuePluginRuntime.hueID);
         final EditText ipfield = new EditText(ctx);
         connectbar = new ProgressBar(ctx, null, android.R.attr.progressBarStyleHorizontal);
+        connectbar.setVisibility(View.GONE);
         connectbutton = new Button(ctx);
         connectbutton.setText("Connect To Hue Bridge");
         connectbutton.setOnClickListener(new View.OnClickListener() 
