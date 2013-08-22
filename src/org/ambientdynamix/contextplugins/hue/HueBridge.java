@@ -103,7 +103,7 @@ public class HueBridge {
 	boolean authenticated = false;
 	boolean initialSyncDone = false;
 
-	String deviceType = getClass().getName();
+	String deviceType = getClass().getName().substring(0, 35);
 
 	String name;
 	final Map<Integer, HueLightBulb> lights = new TreeMap<Integer, HueLightBulb>();
@@ -403,7 +403,7 @@ public class HueBridge {
 						final JSONObject error = response.optJSONObject("error");
 						if(error!=null && error.has("type")) 
 						{
-							if(error.getInt("type")!=101 && error.getInt("type")!=1) 
+							if(error.getInt("type")!=101) 
 							{
 								Log.d("HUE", "Got unexpected error on create user: " +error);
 								waitForGrant = false;
