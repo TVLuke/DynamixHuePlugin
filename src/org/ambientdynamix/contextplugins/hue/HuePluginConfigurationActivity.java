@@ -397,6 +397,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			    	 Log.d("HUE", "on post execute");
 			    	 connectbar.setVisibility(View.GONE);		    	
 			    	 connectbutton.setClickable(true);
+			    	 text.setText("");
 			    	 Log.d("Hue", "on Post Execute 2");
 			 	    updateListView();
 			     }
