@@ -197,7 +197,10 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 
 	public static void updateBridges() 
 	{
-		bridges = HueBridge.discover();		
+		if(bridges!=null)
+		{
+			bridges = HueBridge.discover();		
+		}
 	}
 
 	public static List<HueBridge> getBridges() 
