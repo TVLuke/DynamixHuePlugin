@@ -31,7 +31,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 {
 
 	LinearLayout rootLayout;
-	private final static String TAG = "HUE PLUGIN";
+	private final static String TAG = "HUE";
 	private Context ctx;
 	Activity activity;
 	static TextView text;

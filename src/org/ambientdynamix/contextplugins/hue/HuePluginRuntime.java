@@ -15,7 +15,7 @@ import android.util.Log;
 
 public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 {
-	private final static String TAG = "CURRENTACTIVITY";
+	private final static String TAG = "HUE";
 	public static ContextPluginSettings settings;
 	public static String hueID="";
 	static List<HueBridge> bridges = new ArrayList<HueBridge>();
@@ -65,7 +65,7 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 	@Override
 	public void handleConfiguredContextRequest(UUID requestId, String contextInfoType, Bundle scanConfig) 
 	{
-		Log.d(TAG, "configured context request");
+		Log.d(TAG, "configured context request from Hue Plugin");
 		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.action.environment.light") || contextInfoType.equals("org.ambientdynamix.contextplugins.artnet"))
 		{
 			if(scanConfig.containsKey("Action_Type"))
