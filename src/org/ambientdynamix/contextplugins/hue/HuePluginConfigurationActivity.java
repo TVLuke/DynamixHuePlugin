@@ -14,6 +14,7 @@ import org.ambientdynamix.api.contextplugin.IContextPluginConfigurationViewFacto
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.util.DisplayMetrics;
@@ -134,7 +135,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				tv3.setTextSize(20);
 				String x = ""+light.getHue();
 				
-				tv.setBackgroundColor(0xfff000ff);
+				tv.setBackgroundColor(Color.parseColor("#ff00ff"));
 				tv3.setText("  "+light.getName());
 				
 				listLayout.addView(tv3, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
