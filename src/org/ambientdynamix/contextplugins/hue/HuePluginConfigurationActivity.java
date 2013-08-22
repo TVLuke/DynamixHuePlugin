@@ -218,9 +218,9 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 					    				double cix = bulb.ciex;
 					    				double ciy = bulb.ciey;
 					    				int ct = bulb.colorTemperature;
-					    				bulb.setBrightness(ColorHelper.convertRGB2Hue("000000000").get("bri"));
-					    				bulb.setHue(ColorHelper.convertRGB2Hue("000000000").get("hue"));
-					    				bulb.setSaturation(ColorHelper.convertRGB2Hue("000000000").get("sat"));
+					    				bulb.setBrightness(ColorHelper.convertRGB2Hue("255000000").get("bri"));
+					    				bulb.setHue(ColorHelper.convertRGB2Hue("255000000").get("hue"));
+					    				bulb.setSaturation(ColorHelper.convertRGB2Hue("255000000").get("sat"));
 					    				try 
 					    				{
 											Thread.sleep(250);
@@ -242,9 +242,9 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
-					    				bulb.setBrightness(ColorHelper.convertRGB2Hue("000000000").get("bri"));
-					    				bulb.setHue(ColorHelper.convertRGB2Hue("000000000").get("hue"));
-					    				bulb.setSaturation(ColorHelper.convertRGB2Hue("000000000").get("sat"));
+					    				bulb.setBrightness(ColorHelper.convertRGB2Hue("255000000").get("bri"));
+					    				bulb.setHue(ColorHelper.convertRGB2Hue("255000000").get("hue"));
+					    				bulb.setSaturation(ColorHelper.convertRGB2Hue("255000000").get("sat"));
 					    				try 
 					    				{
 											Thread.sleep(250);
