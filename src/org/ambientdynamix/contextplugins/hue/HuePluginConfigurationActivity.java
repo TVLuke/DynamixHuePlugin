@@ -69,6 +69,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
             public void onClick(View v)
             {
             	new Countdown().execute();
+	    		discoverAndAuthenticate();
 
             }
         });
@@ -124,7 +125,6 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			    	  Log.d("HUE", "set visble");
 		 	    	 connectbar.setVisibility(View.VISIBLE);
 		    		  Log.d("HUE", "p=0 start disc and auth");
-		    		  discoverAndAuthenticate();
 		    	 }
 		    	 connectbutton.setClickable(false);
 		    	  Log.d("HUE", "int p");
