@@ -212,9 +212,12 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			    			 		public void run()
 			    			 		{
 					    				Log.d("HUE", bulb.toString());
-					    				Integer bri = bulb.getBrightness();
-					    				Integer hu = bulb.getHue();
-					    				Integer sa = bulb.getSaturation();
+					    				Integer bri = bulb.brightness;
+					    				Integer hu = bulb.hue;
+					    				Integer sa = bulb.saturation;
+					    				double cix = bulb.ciex;
+					    				double ciy = bulb.ciey;
+					    				int ct = bulb.colorTemperature;
 					    				bulb.setBrightness(ColorHelper.convertRGB2Hue("000000000").get("bri"));
 					    				bulb.setHue(ColorHelper.convertRGB2Hue("000000000").get("hue"));
 					    				bulb.setSaturation(ColorHelper.convertRGB2Hue("000000000").get("sat"));
@@ -253,7 +256,9 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 										}
 					    				bulb.setBrightness(bri);
 					    				bulb.setHue(hu);
-					    				bulb.setSaturation(sa);		    			 		
+					    				bulb.setSaturation(sa);		 
+					    				bulb.setCieXY(cix, ciy);
+					    				bulb.setColorTemperature(ct);
 					    			}
 			    			 	}).start();
 			    			}
