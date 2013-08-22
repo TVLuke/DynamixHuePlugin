@@ -45,7 +45,8 @@ import java.util.logging.Logger;
  *
  * @author Stephan Jaetzold <p><small>Created at 21.03.13, 15:06</small>
  */
-class HueBridgeComm {
+class HueBridgeComm
+{
 	Logger log = Logger.getLogger(this.getClass().getName());
 //	{
 //		log.setLevel(Level.ALL);
@@ -56,7 +57,8 @@ class HueBridgeComm {
 
 	final URL baseUrl;
 	private static final String REQUEST_CHARSET = "UTF-8";
-	static enum RM {
+	static enum RM 
+	{
 		GET,POST,PUT,DELETE
 	}
 

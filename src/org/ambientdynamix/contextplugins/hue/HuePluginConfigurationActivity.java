@@ -188,11 +188,20 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				        // suggestion: Save a mapping from HueBridge.getUDN() to HueBridge.getUsername() somewhere.
 				    	Log.d("HUE", HuePluginRuntime.hueID);
 				        bridge.setUsername(HuePluginRuntime.hueID);
-				        if(!bridge.authenticate(false)) 
+				        boolean auth=false;
+				        try
+				        {
+				        	auth = !bridge.authenticate(false);
+				        }
+				        catch(Exception e)
+				        {
+				        	Log.e("HUE", "blablabla");
+				        }
+				        if(!auth) 
 				        {
 				        	Log.d("HUE", "Press the button on your Hue bridge in the next 30 seconds to grant access.");
 				        	text.setText("Press the button on your Hue bridge in the next 30 seconds to grant access.");
-				            if(bridge.authenticate(true)) 
+				            if(auth) 
 				            {
 				            	Log.d("HUE", "Access granted. username: " + bridge.getUsername());
 				            } 
