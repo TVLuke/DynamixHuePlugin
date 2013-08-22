@@ -504,6 +504,7 @@ public class HueBridge {
 				if(datastore.has("error")) 
 				{
 					Log.d("HUE", "DataStore has error");
+					Log.e("HUE", datastore.getJSONObject("error").toString());
 					throw new HueCommException(datastore.getJSONObject("error"));
 				}
 				if(datastore.has("config") && datastore.has("lights") && datastore.has("groups")) 
