@@ -339,26 +339,39 @@ public class HueBridge {
 	 *
 	 * @return true, if this bridge API instance has now a username that is verified to be allowed to access the bridge device.
 	 */
-	public boolean authenticate(String usernameToTry, boolean waitForGrant) {
-		if(usernameToTry!=null && !usernameToTry.matches("\\s*[-\\w]{10,40}\\s*")) {
+	public boolean authenticate(String usernameToTry, boolean waitForGrant) 
+	{
+		Log.d("HUE", username+" "+waitForGrant);
+		if(usernameToTry!=null && !usernameToTry.matches("\\s*[-\\w]{10,40}\\s*")) 
+		{
+			Log.d("HUE", "illeegal argument");
 			throw new IllegalArgumentException("A username must be 10-40 characters long and may only contain the characters -,_,a-b,A-B,0-9");
 		}
 
-		if(!isAuthenticated() || !equalEnough(username, usernameToTry)) {
+		if(!isAuthenticated() || !equalEnough(username, usernameToTry)) 
+		{
+			Log.d("HUE", "not authenticated and not already known");
 			// if we have an usernameToTry then check that first whether it already exists
 			// I just don't get why a "create new user" request for an existing user results in the same 101 error as when the user does not exist.
 			// But for this reason this additional preliminary request is necessary.
-			if(!equalEnough(null, usernameToTry)) {
-				try {
+			if(!equalEnough(null, usernameToTry)) 
+			{
+				try 
+				{
+					Log.d("HUE", "blablub");
 					completeSync(usernameToTry);
 					authenticated = true;
-				} catch(HueCommException e) {
+				} 
+				catch(HueCommException e) 
+				{
+					Log.e("HUE", "HueCommException");
 					e.printStackTrace();
 				}
 			}
 
 			if(!isAuthenticated()) 
 			{
+				Log.d("HUE", "ok... not authenticated");
 				long start = System.currentTimeMillis();
 				int waitSeconds = 30;
 				do 
@@ -416,7 +429,9 @@ public class HueBridge {
 			}
 		}
 
-		if(isAuthenticated() && !initialSyncDone) {
+		if(isAuthenticated() && !initialSyncDone) 
+		{
+			Log.d("HUE", "last if");
 			completeSync(username);
 		}
 
