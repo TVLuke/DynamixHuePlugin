@@ -212,6 +212,21 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			    			 		public void run()
 			    			 		{
 					    				Log.d("HUE", bulb.toString());
+					    				Integer bri = bulb.getBrightness();
+					    				Integer hu = bulb.getHue();
+					    				Integer sa = bulb.getSaturation();
+					    				bulb.setBrightness(ColorHelper.convertRGB2Hue("000000000").get("bri"));
+					    				bulb.setHue(ColorHelper.convertRGB2Hue("000000000").get("hue"));
+					    				bulb.setSaturation(ColorHelper.convertRGB2Hue("000000000").get("sat"));
+					    				try 
+					    				{
+											Thread.sleep(250);
+										} 
+					    				catch (InterruptedException e) 
+					    				{
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
 					    				bulb.setBrightness(ColorHelper.convertRGB2Hue("255255255").get("bri"));
 					    				bulb.setHue(ColorHelper.convertRGB2Hue("255255255").get("hue"));
 					    				bulb.setSaturation(ColorHelper.convertRGB2Hue("255255255").get("sat"));
@@ -224,7 +239,21 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
-					    				bulb.setOn(false);			    			 		
+					    				bulb.setBrightness(ColorHelper.convertRGB2Hue("000000000").get("bri"));
+					    				bulb.setHue(ColorHelper.convertRGB2Hue("000000000").get("hue"));
+					    				bulb.setSaturation(ColorHelper.convertRGB2Hue("000000000").get("sat"));
+					    				try 
+					    				{
+											Thread.sleep(250);
+										} 
+					    				catch (InterruptedException e) 
+					    				{
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+					    				bulb.setBrightness(bri);
+					    				bulb.setHue(hu);
+					    				bulb.setSaturation(sa);		    			 		
 					    			}
 			    			 	}).start();
 			    			}
