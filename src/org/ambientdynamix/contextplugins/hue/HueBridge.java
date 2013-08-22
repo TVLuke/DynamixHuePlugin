@@ -380,7 +380,8 @@ public class HueBridge {
 					try 
 					{
 						final JSONWriter jsonWriter = new JSONStringer().object().key("devicetype").value(deviceType);
-						if(usernameToTry!=null && usernameToTry.trim().length()>=10) {
+						if(usernameToTry!=null && usernameToTry.trim().length()>=10) 
+						{
 							jsonWriter.key("username").value(usernameToTry.trim());
 						}
 						// use comm directly here because the user is not currently set
@@ -388,7 +389,7 @@ public class HueBridge {
 					} 
 					catch(IOException e) 
 					{
-						log.log(Level.WARNING, "IOException on create user request", e);
+						Log.d("HUE", "IOException on create user request", e);
 					}
 					final JSONObject success = response.optJSONObject("success");
 					if(success!=null && success.has("username")) 
@@ -402,9 +403,9 @@ public class HueBridge {
 						final JSONObject error = response.optJSONObject("error");
 						if(error!=null && error.has("type")) 
 						{
-							if(error.getInt("type")!=101) 
+							if(error.getInt("type")!=101 && error.getInt("type")!=1) 
 							{
-								log.warning("Got unexpected error on create user: " +error);
+								Log.d("HUE", "Got unexpected error on create user: " +error);
 								waitForGrant = false;
 							}
 						}
