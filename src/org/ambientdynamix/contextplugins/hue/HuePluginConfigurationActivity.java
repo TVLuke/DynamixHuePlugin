@@ -186,6 +186,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				    	Log.d("HUE", "Found " + bridge);
 				        // You may need a better scheme to store your username that to just hardcode it.
 				        // suggestion: Save a mapping from HueBridge.getUDN() to HueBridge.getUsername() somewhere.
+				    	Log.d("HUE", HuePluginRuntime.hueID);
 				        bridge.setUsername(HuePluginRuntime.hueID);
 				        if(!bridge.authenticate(false)) 
 				        {
