@@ -139,54 +139,57 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			listLayout.addView(tv2, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
         		FrameLayout.LayoutParams.WRAP_CONTENT));
 			Log.d("HUE", "d");
-			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridges.get(i).getLights();
-			Iterator<HueLightBulb> it = lights.iterator();
-			int counter=0;
-			Log.d("HUE", "e");
-			while(it.hasNext())
+			if(bridges.get(i).authenticated)
 			{
-				counter++;
-				final HueLightBulb light = it.next();
-				Log.d("HUE", "f");
-				TextView tv3 = new TextView(ctx);
-				tv3.setTextSize(30);
-				String x = ""+light.getHue();
-				if(counter%2==0)
+				Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridges.get(i).getLights();
+				Iterator<HueLightBulb> it = lights.iterator();
+				int counter=0;
+				Log.d("HUE", "e");
+				while(it.hasNext())
 				{
-					tv3.setBackgroundColor(0xffcccccc);
+					counter++;
+					final HueLightBulb light = it.next();
+					Log.d("HUE", "f");
+					TextView tv3 = new TextView(ctx);
+					tv3.setTextSize(30);
+					String x = ""+light.getHue();
+					if(counter%2==0)
+					{
+						tv3.setBackgroundColor(0xffcccccc);
+					}
+					else
+					{
+						tv3.setBackgroundColor(0xff888888);
+					}
+					tv3.setText("  "+light.getName());
+					
+					tv3.setOnClickListener(new View.OnClickListener() 
+					{
+					    public void onClick(View v) 
+					    {
+					    	new Thread(new Runnable()
+						 	{
+						 		public void run()
+						 		{
+						 			Integer oldhue = light.getHue();
+						 			light.setHue(0);
+						 			try 
+						 			{
+										Thread.sleep(500);
+									} 
+						 			catch (InterruptedException e) 
+						 			{
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+						 			light.setHue(oldhue);
+						 		}
+						 	}).start();
+					    }
+					});
+					listLayout.addView(tv3, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+			        		FrameLayout.LayoutParams.WRAP_CONTENT));
 				}
-				else
-				{
-					tv3.setBackgroundColor(0xff888888);
-				}
-				tv3.setText("  "+light.getName());
-				
-				tv3.setOnClickListener(new View.OnClickListener() 
-				{
-				    public void onClick(View v) 
-				    {
-				    	new Thread(new Runnable()
-					 	{
-					 		public void run()
-					 		{
-					 			Integer oldhue = light.getHue();
-					 			light.setHue(0);
-					 			try 
-					 			{
-									Thread.sleep(500);
-								} 
-					 			catch (InterruptedException e) 
-					 			{
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-					 			light.setHue(oldhue);
-					 		}
-					 	}).start();
-				    }
-				});
-				listLayout.addView(tv3, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-		        		FrameLayout.LayoutParams.WRAP_CONTENT));
 			}
 		}
 	}
@@ -205,19 +208,9 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				        // suggestion: Save a mapping from HueBridge.getUDN() to HueBridge.getUsername() somewhere.
 				    	Log.d("HUE", HuePluginRuntime.hueID);
 				        bridge.setUsername(HuePluginRuntime.hueID);
-				        boolean auth = bridge.authenticate(false);
 				        if(!bridge.authenticate(false)) 
 				        {
 				        	Log.d("HUE", "Press the button on your Hue bridge in the next 30 seconds to grant access.");
-				        	
-				        	try
-				        	{
-				        		auth = bridge.authenticate(true);
-				        	}
-				        	catch(Exception e)
-				        	{
-				        		Log.e("HUE", "so, for hatever reason trying to authenticate suddenly gets an error...");
-				        	}
 				            if(bridge.authenticate(true)) 
 				            {
 				            	Log.d("HUE", "Access granted. username: " + bridge.getUsername());

@@ -166,6 +166,7 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 			String appID = randomAppId();
 			hueID=appID;
 			settings.put("HueApplicationID", appID);
+
 		}
 		context=this;	
 		//HuePluginConfigurationActivity.discoverAndAuthenticate(this);
