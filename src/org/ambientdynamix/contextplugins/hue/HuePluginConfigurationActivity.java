@@ -105,10 +105,12 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 
 	private void updateListView()
 	{
+		Log.d("HUE", "update List View");
 		listLayout.removeAllViews();
 		List<HueBridge> bridges = HuePluginRuntime.getBridges();
 		for(int i=0; i<bridges.size(); i++)
 		{
+			Log.d("HUE", "b");
 			TextView tv = new TextView(ctx);
 			tv.setText(bridges.get(i).getName());
 			tv.setBackgroundColor(0xff888888);
@@ -117,20 +119,21 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			TextView tv2 = new TextView(ctx);
 			tv2.setText(""+bridges.get(i).getBaseUrl());
 			tv2.setBackgroundColor(0xff888888);
-			
+			Log.d("HUE", "c");
 			listLayout.addView(tv, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
 	        		FrameLayout.LayoutParams.WRAP_CONTENT));
 			listLayout.addView(tv2, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
         		FrameLayout.LayoutParams.WRAP_CONTENT));
-		
+			Log.d("HUE", "d");
 			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridges.get(i).getLights();
 			Iterator<HueLightBulb> it = lights.iterator();
 			int counter=0;
+			Log.d("HUE", "e");
 			while(it.hasNext())
 			{
 				counter++;
 				final HueLightBulb light = it.next();
-				
+				Log.d("HUE", "f");
 				TextView tv3 = new TextView(ctx);
 				tv3.setTextSize(30);
 				String x = ""+light.getHue();
@@ -387,6 +390,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			    	 Log.d("HUE", "on post execute");
 			    	 connectbar.setVisibility(View.GONE);		    	
 			    	 connectbutton.setClickable(true);
+			    	 Log.d("Hue", "on Post Execute 2");
 			 	    updateListView();
 			     }
 			 }
