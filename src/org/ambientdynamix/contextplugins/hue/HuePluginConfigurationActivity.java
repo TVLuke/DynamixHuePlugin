@@ -50,7 +50,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		activity=this;
 		// Discover our screen size for proper formatting 
 		DisplayMetrics met = context.getResources().getDisplayMetrics();
-		Log.d("HUE", "xyz b");
+		Log.d("HUE", "xyz c");
 		// Access our Locale via the incoming context's resource configuration to determine language
 		String language = context.getResources().getConfiguration().locale.getDisplayLanguage();
 		
@@ -71,7 +71,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
         {
             public void onClick(View v)
             {
-            	//new Countdown().execute();
+            	new Countdown().execute();
 	    		discoverAndAuthenticate();
             }
         });
@@ -115,7 +115,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				    			for (HueLightBulb bulb : lights) {
 				    				Log.d("HUE", bulb.toString());
 				    				bulb.setBrightness(255);
-				    				bulb.setHue(0);
+				    				bulb.setHue(30000);
 				    			}
 				    			System.out.println("");
 				            } 
@@ -141,4 +141,55 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		 		}
 		 	}).start();	    
 	}
+	 
+	 /**
+		 * @author lukas
+		 *
+		 */
+		 private class Countdown extends AsyncTask<Integer, Integer, Long> 
+		 {
+		     protected Long doInBackground(Integer... urls) 
+		     {
+		    	Log.d("HUE", "doInBackground");
+		    	for(int i=0; i<30; i++)
+		    	{
+		    		try 
+					{
+		    			Log.d("HUE", "sleep");
+						Thread.sleep(1000);
+					} 
+					catch (InterruptedException e) 
+					{
+							
+							e.printStackTrace();
+					}
+		    		Log.d("HUE", "pp");
+					publishProgress(i);
+			    }
+				return 0l;
+			  }
+
+			  protected void onProgressUpdate(Integer... progress) 
+			  {
+			    	 if(progress[0]==0)
+			    	 {
+				    	 Log.d("HUE", "set visble");
+			 	    	 connectbar.setVisibility(View.VISIBLE);
+			    		 Log.d("HUE", "p=0 start disc and auth");
+			    	 }
+			    	 connectbutton.setClickable(false);
+			    	  Log.d("HUE", "int p");
+			    	 int p = progress[0];
+			    	  Log.d("HUE", "p="+p);
+			    	 connectbar.setProgress(p);
+			    	  Log.d("HUE", "done");
+			  	}
+
+			     protected void onPostExecute(Long result) 
+			     {
+			    	 Log.d("HUE", "on post execute");
+			    	 connectbar.setVisibility(View.GONE);		    	
+			    	 connectbutton.setClickable(true);
+			     }
+			 }
 }
