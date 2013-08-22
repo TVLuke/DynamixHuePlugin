@@ -53,7 +53,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		activity=this;
 		// Discover our screen size for proper formatting 
 		DisplayMetrics met = context.getResources().getDisplayMetrics();
-		Log.d("HUE", "xyz c");
+		Log.d("HUE", "xyz d");
 		// Access our Locale via the incoming context's resource configuration to determine language
 		String language = context.getResources().getConfiguration().locale.getDisplayLanguage();
 		
@@ -192,7 +192,6 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				        if(!bridge.authenticate(false)) 
 				        {
 				        	Log.d("HUE", "Press the button on your Hue bridge in the next 30 seconds to grant access.");
-				        	text.setText("Press the button on your Hue bridge in the next 30 seconds to grant access.");
 				            if(bridge.authenticate(true)) 
 				            {
 				            	Log.d("HUE", "Access granted. username: " + bridge.getUsername());
@@ -303,6 +302,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			 	    	 connectbar.setVisibility(View.VISIBLE);
 			    		 Log.d("HUE", "p=0 start disc and auth");
 			    	 }
+			        text.setText("Press the button on your Hue bridge in the next 30 seconds to grant access.");
 			    	 connectbutton.setClickable(false);
 			    	  Log.d("HUE", "int p");
 			    	  double px = progress[0];
