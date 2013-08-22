@@ -191,7 +191,8 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				        boolean auth=false;
 				        try
 				        {
-				        	auth = !bridge.authenticate(false);
+				        	auth = bridge.authenticate(false);
+				   
 				        }
 				        catch(Exception e)
 				        {
