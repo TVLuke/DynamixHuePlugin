@@ -123,7 +123,6 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		    	 connectbutton.setClickable(false);
 		    	 int p = progress[0];
 		    	 connectbar.setProgress(p);
-
 		  }
 
 		     protected void onPostExecute(Long result) 
