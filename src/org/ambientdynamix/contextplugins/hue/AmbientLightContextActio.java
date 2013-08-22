@@ -65,7 +65,7 @@ public class AmbientLightContextActio implements IContextInfo
 	@Override
 	public String getContextType() 
 	{
-		return "org.ambientdynamix.contextplugins.context.info.device.frontapplications";
+		return "org.ambientdynamix.contextplugins.context.action.environment.light";
 	}
 
 	@Override

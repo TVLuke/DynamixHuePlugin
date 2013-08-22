@@ -4,6 +4,7 @@ package org.ambientdynamix.contextplugins.hue;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -72,7 +73,35 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 				String action_type = scanConfig.getString("Action_Type");
 				if(action_type.equals("setcolor"))
 				{
-					
+					String r = scanConfig.getString("R_Channel");
+					String g = scanConfig.getString("G_Channel");
+					String b = scanConfig.getString("B_Channel");
+					for(HueBridge bridge: bridges)
+					{
+						if(bridge.isAuthenticated())
+						{
+							if(scanConfig.containsKey("Device_ID"))
+							{
+				    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
+				    			for (final HueLightBulb bulb : lights) 
+				    			{
+				    				if(bulb.getId().equals(scanConfig.getString("Device_ID")))
+				    				{
+				    					bulb.setHue(ColorHelper.convertRGB2Hue(r+g+b).get("hue"));
+				    				}
+				    			}
+							}
+							else
+							{
+				    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
+				    			for (final HueLightBulb bulb : lights) 
+				    			{
+				    					bulb.setHue(ColorHelper.convertRGB2Hue(r+g+b).get("hue"));
+				    			}
+							}
+						}
+					}
+
 				}
 			}
 			

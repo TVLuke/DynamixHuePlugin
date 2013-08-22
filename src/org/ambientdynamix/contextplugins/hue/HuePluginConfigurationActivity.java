@@ -63,13 +63,13 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		//multicastLock.acquire();
 		
         text = new TextView(ctx);
-        text.setText("IP");
+        text.setText("");
         //text.setText(HuePluginRuntime.hueID);
         final EditText ipfield = new EditText(ctx);
         connectbar = new ProgressBar(ctx, null, android.R.attr.progressBarStyleHorizontal);
         connectbar.setVisibility(View.GONE);
         connectbutton = new Button(ctx);
-        connectbutton.setText("Connect To Hue Bridge");
+        connectbutton.setText("Search Hue Bridge");
         connectbutton.setOnClickListener(new View.OnClickListener() 
         {
             public void onClick(View v)
@@ -136,7 +136,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				String x = ""+light.getHue();
 				if(counter%2==0)
 				{
-					tv3.setBackgroundColor(0xff00ffff);
+					tv3.setBackgroundColor(0xffcccccc);
 				}
 				else
 				{
@@ -186,7 +186,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				    	Log.d("HUE", "Found " + bridge);
 				        // You may need a better scheme to store your username that to just hardcode it.
 				        // suggestion: Save a mapping from HueBridge.getUDN() to HueBridge.getUsername() somewhere.
-				        bridge.setUsername("552627b33010930f275b72ab1c7be258");
+				        bridge.setUsername(HuePluginRuntime.hueID);
 				        if(!bridge.authenticate(false)) 
 				        {
 				        	Log.d("HUE", "Press the button on your Hue bridge in the next 30 seconds to grant access.");
@@ -260,7 +260,6 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 					    			}
 			    			 	}).start();
 			    			}
-			    			System.out.println("");
 				        }
 				    }
 		 		}
