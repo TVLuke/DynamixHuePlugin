@@ -126,18 +126,39 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			Iterator<HueLightBulb> it = lights.iterator();
 			while(it.hasNext())
 			{
-				HueLightBulb light = it.next();
-				light.setBrightness(35);
-				light.setHue(45000);
-				light.setSaturation(255);
+				final HueLightBulb light = it.next();
 				
 				TextView tv3 = new TextView(ctx);
 				tv3.setTextSize(20);
 				String x = ""+light.getHue();
 				
-				tv.setBackgroundColor(Color.parseColor("#ff00ff"));
+				tv.setBackgroundColor(0xfff000ff);
 				tv3.setText("  "+light.getName());
 				
+				tv3.setOnClickListener(new View.OnClickListener() 
+				{
+				    public void onClick(View v) 
+				    {
+				    	new Thread(new Runnable()
+					 	{
+					 		public void run()
+					 		{
+					 			Integer oldhue = light.getHue();
+					 			light.setHue(0);
+					 			try 
+					 			{
+									Thread.sleep(500);
+								} 
+					 			catch (InterruptedException e) 
+					 			{
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+					 			light.setHue(oldhue);
+					 		}
+					 	}).start();
+				    }
+				});
 				listLayout.addView(tv3, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
 		        		FrameLayout.LayoutParams.WRAP_CONTENT));
 			}
