@@ -32,9 +32,10 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 	private final static String TAG = "HUE PLUGIN";
 	private Context ctx;
 	Activity activity;
+	static TextView text;
+	LinearLayout listLayout;
 	ProgressBar connectbar;
 	Button connectbutton;
-	static List<HueBridge> bridges = new ArrayList<HueBridge>();
 	
 	@Override
 	public void destroyView() throws Exception 
@@ -59,14 +60,14 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		//multicastLock.setReferenceCounted(true);
 		//multicastLock.acquire();
 		
-        TextView text = new TextView(ctx);
+        text = new TextView(ctx);
         text.setText("IP");
         //text.setText(HuePluginRuntime.hueID);
         final EditText ipfield = new EditText(ctx);
         connectbar = new ProgressBar(ctx, null, android.R.attr.progressBarStyleHorizontal);
         connectbar.setVisibility(View.GONE);
         connectbutton = new Button(ctx);
-        connectbutton.setText("Connect To Hue Bridge xxx");
+        connectbutton.setText("Connect To Hue Bridge");
         connectbutton.setOnClickListener(new View.OnClickListener() 
         {
             public void onClick(View v)
@@ -76,28 +77,48 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
             }
         });
         Log.d("HUE", "abc");
+		
+        listLayout = new LinearLayout(context);
+		listLayout.setOrientation(LinearLayout.VERTICAL);
+	    updateListView();
 		rootLayout = new LinearLayout(context);
 		rootLayout.setOrientation(LinearLayout.VERTICAL);
 		
-	     rootLayout.addView(text,  new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+	     rootLayout.addView(connectbutton,  new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
 	        		FrameLayout.LayoutParams.WRAP_CONTENT));
 	     
-	     rootLayout.addView(connectbutton,  new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+	     rootLayout.addView(text,  new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
 	        		FrameLayout.LayoutParams.WRAP_CONTENT));
 	     
 	     rootLayout.addView(connectbar,  new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
 	        		FrameLayout.LayoutParams.WRAP_CONTENT));
-	 
+	     
+	     rootLayout.addView(listLayout, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+	        		FrameLayout.LayoutParams.WRAP_CONTENT));
+
 		return rootLayout;
 	}
 
+	private void updateListView()
+	{
+		listLayout.removeAllViews();
+		List<HueBridge> bridges = HuePluginRuntime.getBridges();
+		for(int i=0; i<bridges.size(); i++)
+		{
+			TextView tv = new TextView(ctx);
+			tv.setText(bridges.get(i).getName());
+			listLayout.addView(tv, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+		        		FrameLayout.LayoutParams.WRAP_CONTENT));
+		}
+	}
 	 public static void discoverAndAuthenticate() 
 	 {
 		 	new Thread(new Runnable()
 		 	{
 		 		public void run()
 		 		{
-		 			bridges = HueBridge.discover();
+		 			HuePluginRuntime.updateBridges();
+		 			List<HueBridge> bridges = HuePluginRuntime.getBridges();
 				    for(HueBridge bridge : bridges) 
 				    {
 				    	Log.d("HUE", "Found " + bridge);
@@ -107,6 +128,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				        if(!bridge.authenticate(false)) 
 				        {
 				        	Log.d("HUE", "Press the button on your Hue bridge in the next 30 seconds to grant access.");
+				        	text.setText("Press the button on your Hue bridge in the next 30 seconds to grant access.");
 				            if(bridge.authenticate(true)) 
 				            {
 				            	Log.d("HUE", "Access granted. username: " + bridge.getUsername());
@@ -179,7 +201,12 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			    	 }
 			    	 connectbutton.setClickable(false);
 			    	  Log.d("HUE", "int p");
-			    	 int p = progress[0];
+			    	  double px = progress[0];
+			    	 int p = (int) (px/(0.3));
+			    	 if(progress[0]==29)
+			    	 {
+			    		 p=100;
+			    	 }
 			    	  Log.d("HUE", "p="+p);
 			    	 connectbar.setProgress(p);
 			    	  Log.d("HUE", "done");
@@ -190,6 +217,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			    	 Log.d("HUE", "on post execute");
 			    	 connectbar.setVisibility(View.GONE);		    	
 			    	 connectbutton.setClickable(true);
+			 	    updateListView();
 			     }
 			 }
 }

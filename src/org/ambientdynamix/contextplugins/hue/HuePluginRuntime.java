@@ -3,6 +3,8 @@ package org.ambientdynamix.contextplugins.hue;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.ambientdynamix.api.contextplugin.*;
@@ -15,7 +17,7 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 	private final static String TAG = "CURRENTACTIVITY";
 	public static ContextPluginSettings settings;
 	public static String hueID="";
-	public static HueBridge bridge;
+	static List<HueBridge> bridges = new ArrayList<HueBridge>();
 	HuePluginRuntime context;
 	 private static SecureRandom random = new SecureRandom();
 	
@@ -145,20 +147,25 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 
 		
 	}
-
-	  public static void setBridge(HueBridge thebridge)
-	  {
-		  bridge = thebridge;
-	  }
-	  
-	  public static String randomAppId()
-	  {
+  
+	public static String randomAppId()
+	{
 	    return new BigInteger(250, random).toString(32);
-	  }
+	}
 	  
 	  @Override
 	  public void doManualContextScan() 
 	  {
 		  
 	  }
+
+	public static void updateBridges() 
+	{
+		bridges = HueBridge.discover();		
+	}
+
+	public static List<HueBridge> getBridges() 
+	{
+		return bridges;
+	}
 }
