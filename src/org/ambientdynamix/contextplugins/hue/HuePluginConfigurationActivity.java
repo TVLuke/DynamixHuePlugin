@@ -114,8 +114,13 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			tv.setTextSize(20);
 			
 			TextView tv2 = new TextView(ctx);
-			tv2.setText(bridges.get(i).UDN);
+			tv2.setText(bridges.get(i).deviceType);
 			
+			listLayout.addView(tv, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+	        		FrameLayout.LayoutParams.WRAP_CONTENT));
+			listLayout.addView(tv2, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+        		FrameLayout.LayoutParams.WRAP_CONTENT));
+		
 			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridges.get(i).getLights();
 			Iterator<HueLightBulb> it = lights.iterator();
 			while(it.hasNext())
@@ -124,11 +129,13 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				light.setBrightness(25);
 				light.setHue(30000);
 				light.setSaturation(255);
-			}
-			listLayout.addView(tv, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+				
+				TextView tv3 = new TextView(ctx);
+				tv3.setText("  "+light.getName());
+				
+				listLayout.addView(tv3, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
 		        		FrameLayout.LayoutParams.WRAP_CONTENT));
-			listLayout.addView(tv2, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-	        		FrameLayout.LayoutParams.WRAP_CONTENT));
+			}
 		}
 	}
 	 public static void discoverAndAuthenticate(final ContextPluginRuntime xyz) 

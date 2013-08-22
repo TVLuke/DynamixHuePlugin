@@ -197,9 +197,9 @@ public class SimpleServiceDiscovery
 			InetAddress localhost = getAndroidLocalIP();
 			
 			InetSocketAddress srcAddress = new InetSocketAddress(localhost, MULTICAST_PORT);
-			Log.d("HUE", ""+srcAddress.getAddress());
+			//Log.d("HUE", ""+srcAddress.getAddress());
 			socket.bind(srcAddress);
-			Log.d("HUE", "step 1");
+			//Log.d("HUE", "step 1");
 		} 
 		catch(IOException e) 
 		{
@@ -210,7 +210,7 @@ public class SimpleServiceDiscovery
 		try 
 		{
 			socket.setSoTimeout(socketTimeout);
-			Log.d("HUE", "step 2");
+			//Log.d("HUE", "step 2");
 		} 
 		catch(SocketException e) 
 		{
