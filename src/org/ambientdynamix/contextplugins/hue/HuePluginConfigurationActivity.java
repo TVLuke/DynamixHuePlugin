@@ -119,6 +119,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		    	 {
 		    		 discoverAndAuthenticate();
 		    	 }
+		    	 connectbar.setVisibility(View.VISIBLE);
 		    	 connectbutton.setClickable(false);
 		    	 int p = progress[0];
 		    	 connectbar.setProgress(p);
@@ -128,7 +129,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		     protected void onPostExecute(Long result) 
 		     {
 		    	 Log.d("HUE", "on post execute");
-		    	
+		    	 connectbar.setVisibility(View.GONE);		    	
 		    	 connectbutton.setClickable(true);
 		     }
 		 }
