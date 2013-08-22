@@ -68,16 +68,20 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 		Log.d(TAG, "configured context request from Hue Plugin");
 		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.action.environment.light") || contextInfoType.equals("org.ambientdynamix.contextplugins.artnet"))
 		{
-			if(scanConfig.containsKey("Action_Type"))
+			if(scanConfig.containsKey("action_type"))
 			{
-				String action_type = scanConfig.getString("Action_Type");
+				Log.d("HUE", "contains actionType");
+				String action_type = scanConfig.getString("action_type");
 				if(action_type.equals("setcolor"))
 				{
-					String r = scanConfig.getString("R_Channel");
-					String g = scanConfig.getString("G_Channel");
-					String b = scanConfig.getString("B_Channel");
+					Log.d("HUE", "action_type=setcolor");
+					String r = scanConfig.getString("r_channel");
+					String g = scanConfig.getString("r_channel");
+					String b = scanConfig.getString("r_channel");
+					Log.d("HUE", r+" "+g+" "+b);
 					for(HueBridge bridge: bridges)
 					{
+						Log.d("HUE", "go through bridges");
 						if(bridge.isAuthenticated())
 						{
 							if(scanConfig.containsKey("Device_ID"))
