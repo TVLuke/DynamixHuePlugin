@@ -6,9 +6,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import de.jaetzold.philips.hue.ColorHelper;
-import de.jaetzold.philips.hue.HueBridge;
-import de.jaetzold.philips.hue.HueLightBulb;
 
 import org.ambientdynamix.api.contextplugin.ContextPluginRuntime;
 import org.ambientdynamix.api.contextplugin.ContextPluginSettings;

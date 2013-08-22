@@ -1,4 +1,4 @@
-package de.jaetzold.philips.hue;
+package org.ambientdynamix.contextplugins.hue;
 
 /*
  Copyright (c) 2013 Stephan Jaetzold.
@@ -21,9 +21,10 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import de.jaetzold.philips.hue.HueLight.Alert;
-import de.jaetzold.philips.hue.HueLight.ColorMode;
-import de.jaetzold.philips.hue.HueLight.Effect;
+import org.ambientdynamix.contextplugins.hue.HueLight.Alert;
+import org.ambientdynamix.contextplugins.hue.HueLight.ColorMode;
+import org.ambientdynamix.contextplugins.hue.HueLight.Effect;
+
 
 /**
  * A group of lights that is entirely client-side.

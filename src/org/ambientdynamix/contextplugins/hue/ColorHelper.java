@@ -1,4 +1,4 @@
-package de.jaetzold.philips.hue;
+package org.ambientdynamix.contextplugins.hue;
 
 import java.util.HashMap;
 import java.util.Map;

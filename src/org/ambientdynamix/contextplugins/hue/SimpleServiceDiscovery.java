@@ -1,4 +1,4 @@
-package de.jaetzold.networking;
+package org.ambientdynamix.contextplugins.hue;
 
 /*
  Copyright (c) 2013 Stephan Jaetzold.
@@ -40,7 +40,6 @@ import org.apache.http.conn.util.InetAddressUtils;
 
 import android.util.Log;
 
-import de.jaetzold.philips.hue.HueBridge;
 
 /**
  * Implementation of the Simple Service Discovery Protocol (SSDP) part that discovers devices.

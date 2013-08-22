@@ -1,4 +1,4 @@
-package de.jaetzold.philips.hue;
+package org.ambientdynamix.contextplugins.hue;
 
 /*
  Copyright (c) 2013 Stephan Jaetzold.
@@ -13,7 +13,6 @@ package de.jaetzold.philips.hue;
  See the License for the specific language governing permissions and limitations under the License.
  */
 
-import de.jaetzold.networking.SimpleServiceDiscovery;
 
 import org.json2.JSONArray;
 import org.json2.JSONObject;

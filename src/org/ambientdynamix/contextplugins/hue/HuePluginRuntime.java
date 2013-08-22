@@ -1,7 +1,5 @@
 package org.ambientdynamix.contextplugins.hue;
 
-import de.jaetzold.philips.hue.HueBridge;
-import de.jaetzold.philips.hue.HueLightBulb;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

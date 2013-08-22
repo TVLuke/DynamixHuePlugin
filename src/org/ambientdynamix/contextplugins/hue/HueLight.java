@@ -1,4 +1,4 @@
-package de.jaetzold.philips.hue;
+package org.ambientdynamix.contextplugins.hue;
 
 import org.json2.JSONException;
 

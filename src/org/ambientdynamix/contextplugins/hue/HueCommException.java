@@ -1,4 +1,4 @@
-package de.jaetzold.philips.hue;
+package org.ambientdynamix.contextplugins.hue;
 
 /*
  Copyright (c) 2013 Stephan Jaetzold.

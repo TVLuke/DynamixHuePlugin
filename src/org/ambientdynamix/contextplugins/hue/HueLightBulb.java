@@ -1,4 +1,4 @@
-package de.jaetzold.philips.hue;
+package org.ambientdynamix.contextplugins.hue;
 
 /*
  Copyright (c) 2013 Stephan Jaetzold.
@@ -23,8 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static de.jaetzold.philips.hue.HueBridgeComm.RM.*;
-import static de.jaetzold.philips.hue.HueLight.ColorMode.*;
+import static org.ambientdynamix.contextplugins.hue.HueBridgeComm.RM.*;
+import static org.ambientdynamix.contextplugins.hue.HueLight.ColorMode.*;
 
 /**
  * This class represents a single light bulb. Use it to query or manipulate the state of a single light bulb.

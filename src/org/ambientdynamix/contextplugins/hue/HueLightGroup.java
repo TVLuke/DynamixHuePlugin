@@ -1,4 +1,4 @@
-package de.jaetzold.philips.hue;
+package org.ambientdynamix.contextplugins.hue;
 
 /*
  Copyright (c) 2013 Stephan Jaetzold.
@@ -13,6 +13,9 @@ package de.jaetzold.philips.hue;
  See the License for the specific language governing permissions and limitations under the License.
  */
 
+import org.ambientdynamix.contextplugins.hue.HueLight.Alert;
+import org.ambientdynamix.contextplugins.hue.HueLight.ColorMode;
+import org.ambientdynamix.contextplugins.hue.HueLight.Effect;
 import org.json2.JSONArray;
 import org.json2.JSONObject;
 import org.json2.JSONStringer;
@@ -20,9 +23,6 @@ import org.json2.JSONWriter;
 
 import android.util.Log;
 
-import de.jaetzold.philips.hue.HueLight.Alert;
-import de.jaetzold.philips.hue.HueLight.ColorMode;
-import de.jaetzold.philips.hue.HueLight.Effect;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import static de.jaetzold.philips.hue.HueBridgeComm.RM.PUT;
+import static org.ambientdynamix.contextplugins.hue.HueBridgeComm.RM.PUT;
 
 /**
  * This class represents a group of lights that is defined on the hue bridge device. By convention, the group with the id '0' always

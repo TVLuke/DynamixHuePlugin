@@ -1,4 +1,4 @@
-package de.jaetzold.philips.hue;
+package org.ambientdynamix.contextplugins.hue;
 
 /*
  Copyright (c) 2013 Stephan Jaetzold.
@@ -35,7 +35,7 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static de.jaetzold.philips.hue.HueBridgeComm.RM.*;
+import static org.ambientdynamix.contextplugins.hue.HueBridgeComm.RM.*;
 
 /**
  * Represents the properties and abilities of a Philips hue Bridge.
