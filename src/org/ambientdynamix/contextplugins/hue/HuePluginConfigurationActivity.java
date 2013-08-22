@@ -68,7 +68,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
         {
             public void onClick(View v)
             {
-            	new Countdown().execute();
+            	//new Countdown().execute();
 	    		discoverAndAuthenticate();
 
             }
@@ -132,7 +132,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		    	  Log.d("HUE", "p="+p);
 		    	 connectbar.setProgress(p);
 		    	  Log.d("HUE", "done");
-		  }
+		  	}
 
 		     protected void onPostExecute(Long result) 
 		     {
