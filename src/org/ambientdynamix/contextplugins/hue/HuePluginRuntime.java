@@ -181,7 +181,9 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
   
 	public static String randomAppId()
 	{
-	    return new BigInteger(190, random).toString(32);
+	    String x = new BigInteger(250, random).toString(32);
+	    x = x.substring(0, 30);
+	    return x;
 	}
 	  
 	  @Override
