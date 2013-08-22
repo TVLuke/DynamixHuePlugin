@@ -97,7 +97,6 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 	 {
 	     protected Long doInBackground(Integer... urls) 
 	     {
-          	discoverAndAuthenticate();
 	    	for(int i=0; i<30; i++)
 	    	{
 	    		try 
@@ -105,23 +104,26 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 					Thread.sleep(1000);
 				} 
 				catch (InterruptedException e) 
-					{
+				{
 						
 						e.printStackTrace();
-					}
-					publishProgress(i);
+				}
+				publishProgress(i);
+		    }
+			return 0l;
+		  }
+
+		  protected void onProgressUpdate(Integer... progress) 
+		  {
+		    	 if(progress[0]==0)
+		    	 {
+		    		 discoverAndAuthenticate();
 		    	 }
-					return 0l;
-		     }
-
-		     protected void onProgressUpdate(Integer... progress) 
-		     {
-
 		    	 connectbutton.setClickable(false);
 		    	 int p = progress[0];
 		    	 connectbar.setProgress(p);
 
-		     }
+		  }
 
 		     protected void onPostExecute(Long result) 
 		     {
