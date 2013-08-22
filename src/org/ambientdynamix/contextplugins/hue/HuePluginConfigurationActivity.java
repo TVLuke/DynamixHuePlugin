@@ -110,11 +110,11 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		{
 			TextView tv = new TextView(ctx);
 			tv.setText(bridges.get(i).getName());
-			tv.setBackgroundColor(0x0fff0000);
-			tv.setTextSize(20);
+			tv.setBackgroundColor(0x0f00ffff);
+			tv.setTextSize(35);
 			
 			TextView tv2 = new TextView(ctx);
-			tv2.setText(bridges.get(i).deviceType);
+			tv2.setText(""+bridges.get(i).getBaseUrl());
 			
 			listLayout.addView(tv, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
 	        		FrameLayout.LayoutParams.WRAP_CONTENT));
@@ -126,11 +126,15 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			while(it.hasNext())
 			{
 				HueLightBulb light = it.next();
-				light.setBrightness(25);
-				light.setHue(30000);
+				light.setBrightness(35);
+				light.setHue(45000);
 				light.setSaturation(255);
 				
 				TextView tv3 = new TextView(ctx);
+				tv3.setTextSize(20);
+				String x = ""+light.getHue();
+				
+				tv.setBackgroundColor(0x00ff00ff);
 				tv3.setText("  "+light.getName());
 				
 				listLayout.addView(tv3, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
@@ -162,7 +166,8 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				            	Log.d("HUE", "Access granted. username: " + bridge.getUsername());
 				    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
 				    			Log.d("HUE", "Available LightBulbs: "+lights.size());
-				    			for (HueLightBulb bulb : lights) {
+				    			for (HueLightBulb bulb : lights) 
+				    			{
 				    				Log.d("HUE", bulb.toString());
 				    				bulb.setBrightness(255);
 				    				bulb.setHue(30000);
