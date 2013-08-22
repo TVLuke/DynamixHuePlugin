@@ -13,6 +13,7 @@ import org.ambientdynamix.api.contextplugin.IContextPluginConfigurationViewFacto
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -52,6 +53,11 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		Log.d("HUE", "xyz");
 		// Access our Locale via the incoming context's resource configuration to determine language
 		String language = context.getResources().getConfiguration().locale.getDisplayLanguage();
+		
+		WifiManager wm = (WifiManager) getSystemService(ctx.WIFI_SERVICE);
+		WifiManager.MulticastLock multicastLock = wm.createMulticastLock("multicastLock");
+		multicastLock.setReferenceCounted(true);
+		multicastLock.acquire();
 		
         TextView text = new TextView(ctx);
         text.setText("IP");
