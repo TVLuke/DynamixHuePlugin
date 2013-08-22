@@ -3,6 +3,7 @@ package org.ambientdynamix.contextplugins.hue;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -45,7 +46,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 	}
 
 	@Override
-	public View initializeView(Context context, ContextPluginRuntime arg1, int arg2) throws Exception 
+	public View initializeView(Context context, final ContextPluginRuntime arg1, int arg2) throws Exception 
 	{
 		ctx=context;
 		activity=this;
@@ -73,14 +74,16 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
             public void onClick(View v)
             {
             	new Countdown().execute();
-	    		discoverAndAuthenticate();
+	    		discoverAndAuthenticate(arg1);
             }
         });
         Log.d("HUE", "abc");
 		
         listLayout = new LinearLayout(context);
 		listLayout.setOrientation(LinearLayout.VERTICAL);
+		
 	    updateListView();
+	    
 		rootLayout = new LinearLayout(context);
 		rootLayout.setOrientation(LinearLayout.VERTICAL);
 		
@@ -107,11 +110,28 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		{
 			TextView tv = new TextView(ctx);
 			tv.setText(bridges.get(i).getName());
+			tv.setBackgroundColor(0x0fff0000);
+			tv.setTextSize(20);
+			
+			TextView tv2 = new TextView(ctx);
+			tv2.setText(bridges.get(i).UDN);
+			
+			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridges.get(i).getLights();
+			Iterator<HueLightBulb> it = lights.iterator();
+			while(it.hasNext())
+			{
+				HueLightBulb light = it.next();
+				light.setBrightness(25);
+				light.setHue(30000);
+				light.setSaturation(255);
+			}
 			listLayout.addView(tv, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
 		        		FrameLayout.LayoutParams.WRAP_CONTENT));
+			listLayout.addView(tv2, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+	        		FrameLayout.LayoutParams.WRAP_CONTENT));
 		}
 	}
-	 public static void discoverAndAuthenticate() 
+	 public static void discoverAndAuthenticate(final ContextPluginRuntime xyz) 
 	 {
 		 	new Thread(new Runnable()
 		 	{
@@ -131,6 +151,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				        	text.setText("Press the button on your Hue bridge in the next 30 seconds to grant access.");
 				            if(bridge.authenticate(true)) 
 				            {
+				            	xyz.getPluginFacade().setPluginConfiguredStatus(xyz.getSessionId(), true);
 				            	Log.d("HUE", "Access granted. username: " + bridge.getUsername());
 				    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
 				    			Log.d("HUE", "Available LightBulbs: "+lights.size());
@@ -151,7 +172,8 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				        	Log.d("HUE", "Already granted access. username: " + bridge.getUsername());
 			    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
 			    			Log.d("HUE", "Available LightBulbs: "+lights.size());
-			    			for (HueLightBulb bulb : lights) {
+			    			for (HueLightBulb bulb : lights) 
+			    			{
 			    				Log.d("HUE", bulb.toString());
 			    				bulb.setBrightness(ColorHelper.convertRGB2Hue("255255255").get("bri"));
 			    				bulb.setHue(ColorHelper.convertRGB2Hue("255255255").get("hue"));
@@ -165,13 +187,13 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 	}
 	 
 	 /**
-		 * @author lukas
-		 *
-		 */
-		 private class Countdown extends AsyncTask<Integer, Integer, Long> 
-		 {
-		     protected Long doInBackground(Integer... urls) 
-		     {
+	  * @author lukas
+	  *
+	  */
+	private class Countdown extends AsyncTask<Integer, Integer, Long> 
+	{
+		protected Long doInBackground(Integer... urls) 
+		{
 		    	Log.d("HUE", "doInBackground");
 		    	for(int i=0; i<30; i++)
 		    	{
