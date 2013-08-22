@@ -1,6 +1,7 @@
 package org.ambientdynamix.contextplugins.hue;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -35,7 +36,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 	Activity activity;
 	ProgressBar connectbar;
 	Button connectbutton;
-	static List<HueBridge> bridges;
+	static List<HueBridge> bridges = new ArrayList<HueBridge>();
 	
 	@Override
 	public void destroyView() throws Exception 
@@ -97,10 +98,12 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 	 {
 	     protected Long doInBackground(Integer... urls) 
 	     {
+	    	  Log.d("HUE", "doInBackground");
 	    	for(int i=0; i<30; i++)
 	    	{
 	    		try 
 				{
+	    			  Log.d("HUE", "sleep");
 					Thread.sleep(1000);
 				} 
 				catch (InterruptedException e) 
@@ -108,6 +111,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 						
 						e.printStackTrace();
 				}
+	    		  Log.d("HUE", "pp");
 				publishProgress(i);
 		    }
 			return 0l;
@@ -117,12 +121,17 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		  {
 		    	 if(progress[0]==0)
 		    	 {
-		    		 discoverAndAuthenticate();
+			    	  Log.d("HUE", "set visble");
+		 	    	 connectbar.setVisibility(View.VISIBLE);
+		    		  Log.d("HUE", "p=0 start disc and auth");
+		    		  discoverAndAuthenticate();
 		    	 }
-		    	 connectbar.setVisibility(View.VISIBLE);
 		    	 connectbutton.setClickable(false);
+		    	  Log.d("HUE", "int p");
 		    	 int p = progress[0];
+		    	  Log.d("HUE", "p="+p);
 		    	 connectbar.setProgress(p);
+		    	  Log.d("HUE", "done");
 		  }
 
 		     protected void onPostExecute(Long result) 
