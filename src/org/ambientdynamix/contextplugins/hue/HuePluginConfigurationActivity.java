@@ -111,11 +111,12 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		{
 			TextView tv = new TextView(ctx);
 			tv.setText(bridges.get(i).getName());
-			tv.setBackgroundColor(0xfff00000);
+			tv.setBackgroundColor(0xff888888);
 			tv.setTextSize(35);
 			
 			TextView tv2 = new TextView(ctx);
 			tv2.setText(""+bridges.get(i).getBaseUrl());
+			tv2.setBackgroundColor(0xff888888);
 			
 			listLayout.addView(tv, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
 	        		FrameLayout.LayoutParams.WRAP_CONTENT));
@@ -124,15 +125,23 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		
 			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridges.get(i).getLights();
 			Iterator<HueLightBulb> it = lights.iterator();
+			int counter=0;
 			while(it.hasNext())
 			{
+				counter++;
 				final HueLightBulb light = it.next();
 				
 				TextView tv3 = new TextView(ctx);
-				tv3.setTextSize(20);
+				tv3.setTextSize(30);
 				String x = ""+light.getHue();
-				
-				tv.setBackgroundColor(0xfff000ff);
+				if(counter%2==0)
+				{
+					tv3.setBackgroundColor(0xff00ffff);
+				}
+				else
+				{
+					tv3.setBackgroundColor(0xff888888);
+				}
 				tv3.setText("  "+light.getName());
 				
 				tv3.setOnClickListener(new View.OnClickListener() 
