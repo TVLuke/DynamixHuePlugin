@@ -51,7 +51,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		activity=this;
 		// Discover our screen size for proper formatting 
 		DisplayMetrics met = context.getResources().getDisplayMetrics();
-		
+		Log.d("HUE", "xyz");
 		// Access our Locale via the incoming context's resource configuration to determine language
 		String language = context.getResources().getConfiguration().locale.getDisplayLanguage();
 		
@@ -59,7 +59,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
         text.setText("IP");
         text.setText(HuePluginRuntime.hueID);
         final EditText ipfield = new EditText(ctx);
-        connectbar = new ProgressBar(ctx);
+        connectbar = new ProgressBar(ctx, null, android.R.attr.progressBarStyleHorizontal);
         connectbutton = new Button(ctx);
         connectbutton.setText("Connect To Hue Bridge");
         connectbutton.setOnClickListener(new View.OnClickListener() 
@@ -70,7 +70,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 
             }
         });
-     
+        Log.d("HUE", "abc");
 		rootLayout = new LinearLayout(context);
 		rootLayout.setOrientation(LinearLayout.VERTICAL);
 		
