@@ -188,13 +188,79 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				        // suggestion: Save a mapping from HueBridge.getUDN() to HueBridge.getUsername() somewhere.
 				    	Log.d("HUE", HuePluginRuntime.hueID);
 				        bridge.setUsername(HuePluginRuntime.hueID);
-				        boolean auth = !bridge.authenticate(false);
+				        boolean auth = bridge.authenticate(false);
 				        if(!bridge.authenticate(false)) 
 				        {
 				        	Log.d("HUE", "Press the button on your Hue bridge in the next 30 seconds to grant access.");
-				            if(bridge.authenticate(true)) 
+				        	
+				        	try
+				        	{
+				        		auth = bridge.authenticate(true);
+				        	}
+				        	catch(Exception e)
+				        	{
+				        		Log.e("HUE", "so, for hatever reason trying to authenticate suddenly gets an error...");
+				        	}
+				            if(auth) 
 				            {
 				            	Log.d("HUE", "Access granted. username: " + bridge.getUsername());
+				    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
+				    			Log.d("HUE", "Available LightBulbs: "+lights.size());
+				    			for (final HueLightBulb bulb : lights) 
+				    			{
+				    				new Thread(new Runnable()
+				    			 	{
+				    			 		public void run()
+				    			 		{
+						    				Log.d("HUE", bulb.toString());
+						    				Integer bri = bulb.brightness;
+						    				Integer hu = bulb.hue;
+						    				Integer sa = bulb.saturation;
+						    				double cix = bulb.ciex;
+						    				double ciy = bulb.ciey;
+						    				int ct = bulb.colorTemperature;
+						    				bulb.setOn(false);
+						    				try 
+						    				{
+												Thread.sleep(250);
+											} 
+						    				catch (InterruptedException e) 
+						    				{
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+						    				bulb.setOn(true);
+						    				bulb.setBrightness(ColorHelper.convertRGB2Hue("255255255").get("bri"));
+						    				bulb.setHue(ColorHelper.convertRGB2Hue("255255255").get("hue"));
+						    				bulb.setSaturation(ColorHelper.convertRGB2Hue("255255255").get("sat"));
+						    				try 
+						    				{
+												Thread.sleep(500);
+											} 
+						    				catch (InterruptedException e) 
+						    				{
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+						    				bulb.setOn(false);
+						    				try 
+						    				{
+												Thread.sleep(250);
+											} 
+						    				catch (InterruptedException e) 
+						    				{
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+						    				bulb.setOn(true);
+						    				bulb.setBrightness(bri);
+						    				bulb.setHue(hu);
+						    				bulb.setSaturation(sa);		 
+						    				bulb.setCieXY(cix, ciy);
+						    				bulb.setColorTemperature(ct);
+						    			}
+				    			 	}).start();
+				    			}
 				            } 
 				            else 
 				            {

@@ -479,12 +479,15 @@ public class HueBridge {
 	// Implementation internal methods
 	// *****************************************
 
-	private void completeSync(String username) {
-		try {
+	private void completeSync(String username) 
+	{
+		try 
+		{
 			final List<JSONObject> response = comm.request(GET, "api/" + username.trim(), "");
 			if(response.size()>0) {
 				final JSONObject datastore = response.get(0);
-				if(datastore.has("error")) {
+				if(datastore.has("error")) 
+				{
 					throw new HueCommException(datastore.getJSONObject("error"));
 				}
 				if(datastore.has("config") && datastore.has("lights") && datastore.has("groups")) {
