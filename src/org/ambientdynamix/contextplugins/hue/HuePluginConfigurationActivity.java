@@ -50,14 +50,14 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 		activity=this;
 		// Discover our screen size for proper formatting 
 		DisplayMetrics met = context.getResources().getDisplayMetrics();
-		Log.d("HUE", "xyz");
+		Log.d("HUE", "xyz b");
 		// Access our Locale via the incoming context's resource configuration to determine language
 		String language = context.getResources().getConfiguration().locale.getDisplayLanguage();
 		
-		WifiManager wm = (WifiManager) getSystemService(ctx.WIFI_SERVICE);
-		WifiManager.MulticastLock multicastLock = wm.createMulticastLock("multicastLock");
-		multicastLock.setReferenceCounted(true);
-		multicastLock.acquire();
+		//WifiManager wm = (WifiManager) getSystemService(ctx.WIFI_SERVICE);
+		//WifiManager.MulticastLock multicastLock = wm.createMulticastLock("multicastLock");
+		//multicastLock.setReferenceCounted(true);
+		//multicastLock.acquire();
 		
         TextView text = new TextView(ctx);
         text.setText("IP");
