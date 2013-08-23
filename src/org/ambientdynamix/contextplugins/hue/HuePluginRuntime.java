@@ -108,7 +108,7 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 						Log.d("HUE", "go through bridges");
 						if(bridge.isAuthenticated())
 						{
-							if(scanConfig.containsKey("Device_ID"))
+							if(scanConfig.containsKey("device_id"))
 							{
 								Log.d("HUE", "device Id found");
 				    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
@@ -116,9 +116,8 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 				    			{
 				    				if(bulb.getId().equals(scanConfig.getString("Device_ID")))
 				    				{
-				    					bulb.setHue(ColorHelper.convertRGB2Hue(r+g+b).get("hue"));
-				    					bulb.setSaturation(ColorHelper.convertRGB2Hue(r+g+b).get("sat"));
-				    					bulb.setBrightness(ColorHelper.convertRGB2Hue(r+g+b).get("bri"));
+										bulb.setOn(true);
+										setHueColor(bulb, Double.parseDouble(r),Double.parseDouble(g),Double.parseDouble(b));
 				    				}
 				    			}
 							}
@@ -130,7 +129,7 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 				    			{
 									Log.d("HUE", "bulb"+bulb.id );
 									bulb.setOn(true);
-				    				bulb.setHue(ColorHelper.convertRGB2Hue(r+g+b).get("hue"));
+				    				setHueColor(bulb, Double.parseDouble(r),Double.parseDouble(g),Double.parseDouble(b));
 				    			}
 							}
 						}
@@ -321,5 +320,58 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 	 			}
 			}
 	 	}).start();
+	}
+	
+	public static void setHueColor(HueLightBulb bulb, double r, double g, double b)
+	{
+		if(r>255)
+		{
+			r=255;
+		}
+		if(g>255)
+		{
+			g=255;
+		}
+		if(b>255)
+		{
+			b=255;
+		}
+		if(r<0)
+		{
+			r=0;
+		}
+		if(g<0)
+		{
+			g=0;
+		}
+		if(b<0)
+		{
+			b=0;
+		}
+		System.out.println(r+" "+g+" "+b);		
+		double x = 1.076450 * r - 0.237662 * g + 0.161212 * b;
+		double y = 0.410964 * r + 0.554342 * g + 0.034694 * b;
+		double z = -0.010954 * r - 0.013389 * g + 1.024343 * b;
+		
+		double cpx = x = x / (x + y + z);
+		double cpy= y / (x + y + z);
+		if(cpx>1)
+		{
+			cpx=1;
+		}
+		if(cpx<0)
+		{
+			cpx=0;
+		}
+		if(cpy>1)
+		{
+			cpy=1;
+		}
+		if(cpy>0)
+		{
+			cpy=0;
+		}
+		bulb.setCieXY(cpx, cpy);
+		bulb.setCiey(0.0);
 	}
 }
