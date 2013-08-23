@@ -303,54 +303,67 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 	
 	public static void setHueColor(HueLightBulb bulb, double r, double g, double b)
 	{
-		if(r>255)
-		{
-			r=255;
-		}
-		if(g>255)
-		{
-			g=255;
-		}
-		if(b>255)
-		{
-			b=255;
-		}
-		if(r<0)
-		{
-			r=0;
-		}
-		if(g<0)
-		{
-			g=0;
-		}
-		if(b<0)
-		{
-			b=0;
-		}
-		Log.e("HUE", r+" "+g+" "+b);		
-		double x = 1.076450 * r - 0.237662 * g + 0.161212 * b;
-		double y = 0.410964 * r + 0.554342 * g + 0.034694 * b;
-		double z = -0.010954 * r - 0.013389 * g + 1.024343 * b;
-		
-		double cpx = x = x / (x + y + z);
-		double cpy= y / (x + y + z);
-		if(cpx>1)
-		{
-			cpx=1;
-		}
-		if(cpx<0)
-		{
-			cpx=0;
-		}
-		if(cpy>1)
-		{
-			cpy=1;
-		}
-		if(cpy>0)
-		{
-			cpy=0;
-		}
-		bulb.setCieXY(cpx, cpy);
-		//bulb.setCiez(cpy);
+		//method from http://www.everyhue.com/vanilla/discussion/166/hue-rgb-to-hsv-algorithm/p1
+			//r = (float(rInt) / 255)
+			r=r/255.0;
+			//g = (float(gInt) / 255)
+			g=g/255.0;
+			//b = (float(bInt) / 255)
+			b=b/255.0;
+			
+			if (r > 0.04045)
+			{
+				r = Math.pow(((r + 0.055) / 1.055), 2.4);
+			}
+			else
+			{
+				r = r / 12.92;
+			}
+			if (g > 0.04045)
+			{
+				g = Math.pow(((g + 0.055) / 1.055), 2.4);
+			}
+			else
+			{
+				g = g / 12.92;
+			}
+			if (b > 0.04045)
+			{
+				b = Math.pow(((b + 0.055) / 1.055), 2.4);
+			}
+			else
+			{
+				b = b / 12.92;
+			}
+			
+			r = r * 100;
+			g = g * 100;
+			b = b * 100;
+			
+			//Observer = 2deg, Illuminant = D65
+			//These are tristimulus values
+			//X from 0 to 95.047
+			//Y from 0 to 100.000
+			//Z from 0 to 108.883
+			double X = r * 0.4124 + g * 0.3576 + b * 0.1805;
+			double Y = r * 0.2126 + g * 0.7152 + b * 0.0722;
+			double Z = r * 0.0193 + g * 0.1192 + b * 0.9505;
+			
+			//Compute xyY
+			double sum = X + Y + Z;
+			double chroma_x = 0;
+			double chroma_y = 0;
+			if (sum > 0)
+			{
+				chroma_x = X / (X + Y + Z); //x
+				chroma_y = Y / (X + Y + Z); //y
+			}
+			int brightness = (int)(Math.floor(Y / 100 *254)); //luminosity, Y
+			boolean isBulbOn = true;
+			if (brightness == 0)
+			{
+				isBulbOn = false; //bri:0 and the hue bulbs are still on
+			}
+			bulb.setCieXY(chroma_x, chroma_y);
 	}
 }
