@@ -364,6 +364,7 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 			{
 				isBulbOn = false; //bri:0 and the hue bulbs are still on
 			}
+			bulb.setOn(true);
 			bulb.setCieXY(chroma_x, chroma_y);
 	}
 }
