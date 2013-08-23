@@ -117,6 +117,8 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 				    				if(bulb.getId().equals(scanConfig.getString("Device_ID")))
 				    				{
 				    					bulb.setHue(ColorHelper.convertRGB2Hue(r+g+b).get("hue"));
+				    					bulb.setSaturation(ColorHelper.convertRGB2Hue(r+g+b).get("sat"));
+				    					bulb.setBrightness(ColorHelper.convertRGB2Hue(r+g+b).get("bri"));
 				    				}
 				    			}
 							}
