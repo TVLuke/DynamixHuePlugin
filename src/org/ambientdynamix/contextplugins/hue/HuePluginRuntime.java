@@ -76,8 +76,32 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 				{
 					Log.d("HUE", "action_type=setcolor");
 					String r = scanConfig.getString("r_channel");
+					if(r.length()==1)
+					{
+						r="00"+r;
+					}
+					if(r.length()==2)
+					{
+						r="0"+r;
+					}
 					String g = scanConfig.getString("g_channel");
+					if(g.length()==1)
+					{
+						g="00"+g;
+					}
+					if(g.length()==2)
+					{
+						g="0"+g;
+					}
 					String b = scanConfig.getString("b_channel");
+					if(b.length()==1)
+					{
+						b="00"+b;
+					}
+					if(b.length()==2)
+					{
+						b="0"+b;
+					}
 					Log.d("HUE", r+" "+g+" "+b);
 					for(HueBridge bridge: bridges)
 					{
@@ -86,6 +110,7 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 						{
 							if(scanConfig.containsKey("Device_ID"))
 							{
+								Log.d("HUE", "device Id found");
 				    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
 				    			for (final HueLightBulb bulb : lights) 
 				    			{
@@ -97,10 +122,13 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 							}
 							else
 							{
+								Log.d("HUE", "no device id");
 				    			Collection<HueLightBulb> lights = (Collection<HueLightBulb>) bridge.getLights();
 				    			for (final HueLightBulb bulb : lights) 
 				    			{
-				    					bulb.setHue(ColorHelper.convertRGB2Hue(r+g+b).get("hue"));
+									Log.d("HUE", "bulb"+bulb.id );
+									bulb.setOn(true);
+				    				bulb.setHue(ColorHelper.convertRGB2Hue(r+g+b).get("hue"));
 				    			}
 							}
 						}
