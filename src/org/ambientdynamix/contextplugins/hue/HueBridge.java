@@ -103,7 +103,7 @@ public class HueBridge {
 	boolean authenticated = false;
 	boolean initialSyncDone = false;
 
-	String deviceType = getClass().getName().substring(0, 35);
+	String deviceType = getClass().getName();
 
 	String name;
 	final Map<Integer, HueLightBulb> lights = new TreeMap<Integer, HueLightBulb>();
@@ -123,6 +123,10 @@ public class HueBridge {
 
 	HueBridge(URL baseUrl, String username) 
 	{
+		if(deviceType.length()>35)
+		{
+			deviceType= deviceType.substring(0, 35);
+		}
 		this.username = username;
 		this.comm = new HueBridgeComm(baseUrl);
 		// this group is implicit and always contains all lights of this bridge
@@ -379,6 +383,10 @@ public class HueBridge {
 					JSONObject response = new JSONObject();
 					try 
 					{
+						if(deviceType.length()>35)
+						{
+							deviceType= deviceType.substring(0, 35);
+						}
 						final JSONWriter jsonWriter = new JSONStringer().object().key("devicetype").value(deviceType);
 						if(usernameToTry!=null && usernameToTry.trim().length()>=10) 
 						{
@@ -519,18 +527,19 @@ public class HueBridge {
 				else 
 				{
 					Log.d("HUE", "Incomplete response");
-					throw new HueCommException("Incomplete response. Missing at least one of config/lights/groups");
+					//throw new HueCommException("Incomplete response. Missing at least one of config/lights/groups");
 				}
-			} else 
+			} 
+			else 
 			{
 				Log.d("HUE", "empty response");
-				throw new HueCommException("Empty response");
+				//throw new HueCommException("Empty response");
 			}
 		} 
 		catch(IOException e) 
 		{
 			Log.d("HUE", "Some other exception has happend somewhere");
-			throw new HueCommException(e);
+			//throw new HueCommException(e);
 		}
 	}
 

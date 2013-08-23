@@ -76,32 +76,11 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 				{
 					Log.d("HUE", "action_type=setcolor");
 					String r = scanConfig.getString("r_channel");
-					if(r.length()==1)
-					{
-						r="00"+r;
-					}
-					if(r.length()==2)
-					{
-						r="0"+r;
-					}
+					
 					String g = scanConfig.getString("g_channel");
-					if(g.length()==1)
-					{
-						g="00"+g;
-					}
-					if(g.length()==2)
-					{
-						g="0"+g;
-					}
+					
 					String b = scanConfig.getString("b_channel");
-					if(b.length()==1)
-					{
-						b="00"+b;
-					}
-					if(b.length()==2)
-					{
-						b="0"+b;
-					}
+					
 					Log.d("HUE", r+" "+g+" "+b);
 					for(HueBridge bridge: bridges)
 					{
@@ -348,7 +327,7 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 		{
 			b=0;
 		}
-		System.out.println(r+" "+g+" "+b);		
+		Log.e("HUE", r+" "+g+" "+b);		
 		double x = 1.076450 * r - 0.237662 * g + 0.161212 * b;
 		double y = 0.410964 * r + 0.554342 * g + 0.034694 * b;
 		double z = -0.010954 * r - 0.013389 * g + 1.024343 * b;
@@ -372,6 +351,6 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 			cpy=0;
 		}
 		bulb.setCieXY(cpx, cpy);
-		bulb.setCiey(0.0);
+		//bulb.setCiez(cpy);
 	}
 }
