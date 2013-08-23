@@ -168,24 +168,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 					{
 					    public void onClick(View v) 
 					    {
-					    	new Thread(new Runnable()
-						 	{
-						 		public void run()
-						 		{
-						 			Integer oldhue = light.getHue();
-						 			light.setHue(0);
-						 			try 
-						 			{
-										Thread.sleep(500);
-									} 
-						 			catch (InterruptedException e) 
-						 			{
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-						 			light.setHue(oldhue);
-						 		}
-						 	}).start();
+					    	HuePluginRuntime.identifiy(light);
 					    }
 					});
 					listLayout.addView(tv3, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
@@ -221,58 +204,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 				    			Log.d("HUE", "Available LightBulbs: "+lights.size());
 				    			for (final HueLightBulb bulb : lights) 
 				    			{
-				    				new Thread(new Runnable()
-				    			 	{
-				    			 		public void run()
-				    			 		{
-						    				Log.d("HUE", bulb.toString());
-						    				Integer bri = bulb.brightness;
-						    				Integer hu = bulb.hue;
-						    				Integer sa = bulb.saturation;
-						    				double cix = bulb.ciex;
-						    				double ciy = bulb.ciey;
-						    				int ct = bulb.colorTemperature;
-						    				bulb.setOn(false);
-						    				try 
-						    				{
-												Thread.sleep(250);
-											} 
-						    				catch (InterruptedException e) 
-						    				{
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											}
-						    				bulb.setOn(true);
-						    				bulb.setBrightness(ColorHelper.convertRGB2Hue("255255255").get("bri"));
-						    				bulb.setHue(ColorHelper.convertRGB2Hue("255255255").get("hue"));
-						    				bulb.setSaturation(ColorHelper.convertRGB2Hue("255255255").get("sat"));
-						    				try 
-						    				{
-												Thread.sleep(500);
-											} 
-						    				catch (InterruptedException e) 
-						    				{
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											}
-						    				bulb.setOn(false);
-						    				try 
-						    				{
-												Thread.sleep(250);
-											} 
-						    				catch (InterruptedException e) 
-						    				{
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											}
-						    				bulb.setOn(true);
-						    				bulb.setBrightness(bri);
-						    				bulb.setHue(hu);
-						    				bulb.setSaturation(sa);		 
-						    				bulb.setCieXY(cix, ciy);
-						    				bulb.setColorTemperature(ct);
-						    			}
-				    			 	}).start();
+				    				HuePluginRuntime.identifiy(bulb);
 				    			}
 				            } 
 				            else 
@@ -287,58 +219,7 @@ public class HuePluginConfigurationActivity extends Activity implements IContext
 			    			Log.d("HUE", "Available LightBulbs: "+lights.size());
 			    			for (final HueLightBulb bulb : lights) 
 			    			{
-			    				new Thread(new Runnable()
-			    			 	{
-			    			 		public void run()
-			    			 		{
-					    				Log.d("HUE", bulb.toString());
-					    				Integer bri = bulb.brightness;
-					    				Integer hu = bulb.hue;
-					    				Integer sa = bulb.saturation;
-					    				double cix = bulb.ciex;
-					    				double ciy = bulb.ciey;
-					    				int ct = bulb.colorTemperature;
-					    				bulb.setOn(false);
-					    				try 
-					    				{
-											Thread.sleep(250);
-										} 
-					    				catch (InterruptedException e) 
-					    				{
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-					    				bulb.setOn(true);
-					    				bulb.setBrightness(ColorHelper.convertRGB2Hue("255255255").get("bri"));
-					    				bulb.setHue(ColorHelper.convertRGB2Hue("255255255").get("hue"));
-					    				bulb.setSaturation(ColorHelper.convertRGB2Hue("255255255").get("sat"));
-					    				try 
-					    				{
-											Thread.sleep(500);
-										} 
-					    				catch (InterruptedException e) 
-					    				{
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-					    				bulb.setOn(false);
-					    				try 
-					    				{
-											Thread.sleep(250);
-										} 
-					    				catch (InterruptedException e) 
-					    				{
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-					    				bulb.setOn(true);
-					    				bulb.setBrightness(bri);
-					    				bulb.setHue(hu);
-					    				bulb.setSaturation(sa);		 
-					    				bulb.setCieXY(cix, ciy);
-					    				bulb.setColorTemperature(ct);
-					    			}
-			    			 	}).start();
+			    				HuePluginRuntime.identifiy(bulb);
 			    			}
 				        }
 				    }

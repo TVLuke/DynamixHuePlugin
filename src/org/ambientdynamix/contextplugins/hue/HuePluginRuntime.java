@@ -173,7 +173,7 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 			getPluginFacade().storeContextPluginSettings(getSessionId(), settings);
 		}
 		context=this;	
-		//HuePluginConfigurationActivity.discoverAndAuthenticate(this);
+		HuePluginConfigurationActivity.discoverAndAuthenticate(this);
     	getPluginFacade().setPluginConfiguredStatus(getSessionId(), true);
 	}
 
@@ -211,5 +211,85 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 	public static List<HueBridge> getBridges() 
 	{
 		return bridges;
+	}
+	
+	public static void identifiy(final HueLightBulb bulb)
+	{
+		new Thread(new Runnable()
+	 	{
+	 		public void run()
+	 		{
+	 			try
+	 			{
+    				Log.d("HUE", bulb.toString());
+    				boolean originalyon=false;
+    				if(bulb.on)
+    				{
+    					originalyon=true;
+    				}
+    				Integer bri = null;
+    				Integer hu = null;
+    				Integer sa = null;
+    				double cix = 0;
+    				double ciy = 0;
+    				int ct = 0;
+    				if(originalyon)
+    				{
+	    				bri = bulb.brightness;
+	    				hu = bulb.hue;
+	    				sa = bulb.saturation;
+	    				cix = bulb.ciex;
+	    				ciy = bulb.ciey;
+	    				ct = bulb.colorTemperature;
+	    				bulb.setOn(false);
+    				}
+    				try 
+    				{
+						Thread.sleep(250);
+					} 
+    				catch (InterruptedException e) 
+    				{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    				bulb.setOn(true);
+    				bulb.setBrightness(ColorHelper.convertRGB2Hue("255255255").get("bri"));
+    				bulb.setHue(ColorHelper.convertRGB2Hue("255255255").get("hue"));
+    				bulb.setSaturation(ColorHelper.convertRGB2Hue("255255255").get("sat"));
+    				try 
+    				{
+						Thread.sleep(500);
+					} 
+    				catch (InterruptedException e) 
+    				{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    				bulb.setOn(false);
+    				try 
+    				{
+						Thread.sleep(250);
+					} 
+    				catch (InterruptedException e) 
+    				{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    				if(originalyon)
+    				{
+	    				bulb.setOn(true);
+	    				bulb.setBrightness(bri);
+	    				bulb.setHue(hu);
+	    				bulb.setSaturation(sa);		 
+	    				bulb.setCieXY(cix, ciy);
+	    				bulb.setColorTemperature(ct);
+    				}
+	 			}
+	 			catch(Exception e)
+	 			{
+	 				Log.e("HUE", "error while setting lights 2");
+	 			}
+			}
+	 	}).start();
 	}
 }
