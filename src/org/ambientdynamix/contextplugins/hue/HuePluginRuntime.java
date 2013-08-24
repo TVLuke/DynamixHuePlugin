@@ -369,8 +369,15 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 		{
 			public void run()
 			{
+				try
+				{
 				bulb.setOn(true);
 				bulb.setCieXY(ch_x , ch_y);
+				}
+				catch(Exception e)
+				{
+					Log.e("HUE", "there was an error when setting the lightbulb");
+				}
 			}
 	 	}).start();
 	}
