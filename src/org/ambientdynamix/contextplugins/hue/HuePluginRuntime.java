@@ -107,7 +107,6 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 				    			for (final HueLightBulb bulb : lights) 
 				    			{
 									Log.d("HUE", "bulb"+bulb.id );
-									bulb.setOn(true);
 				    				setHueColor(bulb, Double.parseDouble(r),Double.parseDouble(g),Double.parseDouble(b));
 				    			}
 							}
@@ -301,70 +300,78 @@ public class HuePluginRuntime extends AutoReactiveContextPluginRuntime
 	 	}).start();
 	}
 	
-	public static void setHueColor(HueLightBulb bulb, double r, double g, double b)
+	public static void setHueColor(final HueLightBulb bulb, double r, double g, double b)
 	{
-		//method from http://www.everyhue.com/vanilla/discussion/166/hue-rgb-to-hsv-algorithm/p1
-			//r = (float(rInt) / 255)
-			r=r/255.0;
-			//g = (float(gInt) / 255)
-			g=g/255.0;
-			//b = (float(bInt) / 255)
-			b=b/255.0;
+	 	//method from http://www.everyhue.com/vanilla/discussion/166/hue-rgb-to-hsv-algorithm/p1
+		//r = (float(rInt) / 255)
+		r=r/255.0;
+		//g = (float(gInt) / 255)
+		g=g/255.0;
+		//b = (float(bInt) / 255)
+		b=b/255.0;
 			
-			if (r > 0.04045)
-			{
-				r = Math.pow(((r + 0.055) / 1.055), 2.4);
-			}
-			else
-			{
-				r = r / 12.92;
-			}
-			if (g > 0.04045)
-			{
-				g = Math.pow(((g + 0.055) / 1.055), 2.4);
-			}
-			else
-			{
-				g = g / 12.92;
-			}
-			if (b > 0.04045)
-			{
-				b = Math.pow(((b + 0.055) / 1.055), 2.4);
-			}
-			else
-			{
-				b = b / 12.92;
-			}
+		if (r > 0.04045)
+		{
+			r = Math.pow(((r + 0.055) / 1.055), 2.4);
+		}
+		else
+		{
+			r = r / 12.92;
+		}
+		if (g > 0.04045)
+		{
+			g = Math.pow(((g + 0.055) / 1.055), 2.4);
+		}
+		else
+		{
+			g = g / 12.92;
+		}
+		if (b > 0.04045)
+		{
+			b = Math.pow(((b + 0.055) / 1.055), 2.4);
+		}
+		else
+		{
+			b = b / 12.92;
+		}
 			
-			r = r * 100;
-			g = g * 100;
-			b = b * 100;
-			
-			//Observer = 2deg, Illuminant = D65
-			//These are tristimulus values
-			//X from 0 to 95.047
-			//Y from 0 to 100.000
-			//Z from 0 to 108.883
-			double X = r * 0.4124 + g * 0.3576 + b * 0.1805;
-			double Y = r * 0.2126 + g * 0.7152 + b * 0.0722;
-			double Z = r * 0.0193 + g * 0.1192 + b * 0.9505;
-			
-			//Compute xyY
-			double sum = X + Y + Z;
-			double chroma_x = 0;
-			double chroma_y = 0;
-			if (sum > 0)
+		r = r * 100;
+		g = g * 100;
+		b = b * 100;
+				
+		//Observer = 2deg, Illuminant = D65
+		//These are tristimulus values
+		//X from 0 to 95.047
+		//Y from 0 to 100.000
+		//Z from 0 to 108.883
+		double X = r * 0.4124 + g * 0.3576 + b * 0.1805;
+		double Y = r * 0.2126 + g * 0.7152 + b * 0.0722;
+		double Z = r * 0.0193 + g * 0.1192 + b * 0.9505;
+		
+		//Compute xyY
+		double sum = X + Y + Z;
+		double chroma_x = 0;
+		double chroma_y = 0;
+		if (sum > 0)
+		{
+			chroma_x = X / (X + Y + Z); //x
+			chroma_y = Y / (X + Y + Z); //y
+		}
+		final double ch_x =chroma_x;
+		final double ch_y = chroma_y;
+		int brightness = (int)(Math.floor(Y / 100 *254)); //luminosity, Y
+		boolean isBulbOn = true;
+		if (brightness == 0)
+		{
+			isBulbOn = false; //bri:0 and the hue bulbs are still on
+		}
+		new Thread(new Runnable()
+		{
+			public void run()
 			{
-				chroma_x = X / (X + Y + Z); //x
-				chroma_y = Y / (X + Y + Z); //y
+				bulb.setOn(true);
+				bulb.setCieXY(ch_x , ch_y);
 			}
-			int brightness = (int)(Math.floor(Y / 100 *254)); //luminosity, Y
-			boolean isBulbOn = true;
-			if (brightness == 0)
-			{
-				isBulbOn = false; //bri:0 and the hue bulbs are still on
-			}
-			bulb.setOn(true);
-			bulb.setCieXY(chroma_x, chroma_y);
+	 	}).start();
 	}
 }
