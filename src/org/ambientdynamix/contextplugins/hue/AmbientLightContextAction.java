@@ -15,31 +15,31 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-public class AmbientLightContextActio implements IContextInfo
+public class AmbientLightContextAction implements IContextInfo
 {
 
 	private final String TAG = "SCREENSTATUS";
 	
-	public static Parcelable.Creator<AmbientLightContextActio> CREATOR = new Parcelable.Creator<AmbientLightContextActio>() 
+	public static Parcelable.Creator<AmbientLightContextAction> CREATOR = new Parcelable.Creator<AmbientLightContextAction>() 
 			{
-			public AmbientLightContextActio createFromParcel(Parcel in) 
+			public AmbientLightContextAction createFromParcel(Parcel in) 
 			{
-				return new AmbientLightContextActio(in);
+				return new AmbientLightContextAction(in);
 			}
 
-			public AmbientLightContextActio[] newArray(int size) 
+			public AmbientLightContextAction[] newArray(int size) 
 			{
-				return new AmbientLightContextActio[size];
+				return new AmbientLightContextAction[size];
 			}
 		};
 		
-	AmbientLightContextActio()
+	AmbientLightContextAction()
 	{
 		Log.d(TAG, "create new Context Info Object");
 
 	}
 	
-	public AmbientLightContextActio(Parcel in) 
+	public AmbientLightContextAction(Parcel in) 
 	{
 		//in.readList(frontactivitys, getClass().getClassLoader());
 	}
